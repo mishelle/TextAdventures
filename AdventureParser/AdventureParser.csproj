@@ -5,7 +5,7 @@
     <MinimumVisualStudioVersion>11.0</MinimumVisualStudioVersion>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{dd917efa-b047-45ec-bc07-500fe455c0e4}</ProjectGuid>
+    <ProjectGuid>{DD917EFA-B047-45EC-BC07-500FE455C0E4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>AdventureParser</RootNamespace>
@@ -36,7 +36,16 @@
     <!-- A reference to the entire .NET Framework is automatically included -->
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Helpers\StreamReaderTokenizer.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="GameDefinition.cs" />
+    <Compile Include="GameState.cs" />
+    <Compile Include="Model\ActionResponse.cs" />
+    <Compile Include="Model\GameAction.cs" />
+    <Compile Include="Model\GameCondition.cs" />
+    <Compile Include="Model\GameHeader.cs" />
+    <Compile Include="Model\Item.cs" />
+    <Compile Include="Model\Location.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
@@ -47,5 +56,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-
 </Project>

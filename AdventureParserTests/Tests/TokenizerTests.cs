@@ -222,11 +222,12 @@ namespace TextAdventuresTests.Tests
         [TestMethod]
         public void GetStringGetsMultipleLinesNoQuotes()
         {
+            //do I want to keep cr or change it to a space?
             var contents = "\"This is \n a string.\"";
             runTest(contents, (tester) =>
             {
                 var value = tester.GetNextString();
-                Assert.AreEqual("This is\na string.", value);
+                Assert.AreEqual("This is \n a string.", value);
 
             });
         }

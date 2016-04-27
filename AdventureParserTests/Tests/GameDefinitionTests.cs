@@ -20,7 +20,7 @@ namespace AdventureParserTests
                 var db = new GameDefinition(sr);
                 Debug.WriteLine(db.NumItems);
                 Debug.WriteLine(db.StartingRoom);
-                //Assert.Equals("", db.NumItems);
+                Assert.Equals(66, db.NumItems);
             }
         }
 

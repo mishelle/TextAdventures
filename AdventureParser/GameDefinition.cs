@@ -28,7 +28,7 @@ namespace AdventureParser
         {
             var tokenizer = new StreamReaderTokenizer(sr);
             var dummy = tokenizer.GetNextInt();
-            var header = new GameHeader(tokenizer.GetNextInt(12));
+            var header = new GameHeader(tokenizer.GetNextInt(11));
             _header = header;
 
             ActionResponses = loadActions(header.NumActions, tokenizer);
@@ -63,7 +63,14 @@ namespace AdventureParser
             for (var i = 0; i < count; i++)
             {
                 //todo: make sure the location does not exceed the number of locations
-                result[i] = new Item(tokenizer.GetNextString(), tokenizer.GetNextInt());
+                try
+                {
+                    result[i] = new Item(tokenizer.GetNextString(), tokenizer.GetNextInt());
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error loading action " + i, e);
+                }
             }
             return result;
         }
@@ -73,8 +80,15 @@ namespace AdventureParser
             var result = new string[count];
             for (var i = 0; i < count; i++)
             {
-                result[i] = tokenizer.GetNextString();
-            }
+                try
+                {
+                    result[i] = tokenizer.GetNextString();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error loading message " + i, e);
+                }
+}
             return result;
         }
 
@@ -84,7 +98,14 @@ namespace AdventureParser
             for (var i = 0; i < count; i++)
             {
                 //todo: ensure each exit points to a valid room
-                result[i] = new Location(tokenizer.GetNextInt(6), tokenizer.GetNextString());
+                try
+                {
+                    result[i] = new Location(tokenizer.GetNextInt(6), tokenizer.GetNextString());
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error loading location " + i, e);
+                }
             }
             return result;
         }
@@ -95,8 +116,15 @@ namespace AdventureParser
             var nouns = new string[count];
             for (var i = 0; i < count; i++)
             {
-                verbs[i] = tokenizer.GetNextString();
-                nouns[i] = tokenizer.GetNextString();
+                try
+                {
+                    verbs[i] = tokenizer.GetNextString();
+                    nouns[i] = tokenizer.GetNextString();
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error loading words " + i, e);
+                }
             }
             return new string[2][] {verbs, nouns};
         }
@@ -106,7 +134,14 @@ namespace AdventureParser
             var result = new ActionResponse[count];
             for (var i = 0; i < count; i++)
             {
-                result[i] = new ActionResponse(tokenizer.GetNextInt(), tokenizer.GetNextInt(5), tokenizer.GetNextInt(2));
+                try
+                {
+                    result[i] = new ActionResponse(tokenizer.GetNextInt(), tokenizer.GetNextInt(5), tokenizer.GetNextInt(2));
+                }
+                catch (Exception e)
+                {
+                    throw new Exception("Error loading action " + i, e);
+                }
             }
             return result;
         }

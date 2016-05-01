@@ -21,8 +21,8 @@ namespace AdventureParser
         private string[] Messages;
         private Location[] Locations;
         private ActionResponse[] ActionResponses;
-        private string[] Verbs;
-        private string[] Nouns;
+        private WordList Verbs;
+        private WordList Nouns;
 
         public GameDefinition(StreamReader sr)
         {
@@ -34,8 +34,8 @@ namespace AdventureParser
             ActionResponses = loadActions(header.NumActions, tokenizer);
 
             var words = loadWords(header.NumWords, tokenizer);
-            Verbs = words[0];
-            Nouns = words[1];
+            Verbs = new WordList(words[0]);
+            Nouns = new WordList(words[1]);
 
             Locations = loadLocations(header.NumLocations, tokenizer);
 
@@ -151,8 +151,17 @@ namespace AdventureParser
 
         internal int GetLocationOfItem(int i)
         {
-            //check 0 <= i < Items.Length
+            //todo check 0 <= i < Items.Length
             return Items[i].LocationIndex;
+        }
+
+        internal int FindVerb(string input)
+        {
+            return Verbs.findWordIndex(input);
+        }
+        internal int FindNoun(string input)
+        {
+            return Nouns.findWordIndex(input);
         }
     }
 }

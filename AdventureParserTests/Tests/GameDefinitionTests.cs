@@ -20,9 +20,11 @@ namespace AdventureParserTests
                 var db = new GameDefinition(sr);
                 Debug.WriteLine(db.NumItems);
                 Debug.WriteLine(db.StartingRoom);
-                Assert.Equals(66, db.NumItems);
+                Assert.AreEqual(66, db.NumItems);
             }
         }
+
+        //given a set of verbs/nouns and a word, find correct index
 
     }
 }

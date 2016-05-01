@@ -46,6 +46,7 @@
     <Compile Include="Model\GameHeader.cs" />
     <Compile Include="Model\Item.cs" />
     <Compile Include="Model\Location.cs" />
+    <Compile Include="Model\WordList.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />

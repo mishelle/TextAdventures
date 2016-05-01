@@ -14,9 +14,10 @@ namespace AdventureParser.Model
         
         internal Item(string desc, int locationIndex)
         {
-            Description = desc;
             LocationIndex = locationIndex;
-            //todo: something with autoget
+            var values = desc.Split(new []{"/"}, StringSplitOptions.RemoveEmptyEntries);
+            Description = values.Length > 0 ? values[0] : "";
+            AutoGet = values.Length > 1 ? values[1] : "";
         }
     }
 }

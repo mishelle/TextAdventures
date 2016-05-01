@@ -1,5 +1,6 @@
 ﻿
 using AdventureParser.Helpers;
+using AdventureParserTests.Tests;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,7 @@ namespace TextAdventuresTests.Tests
             var contents = "";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<EndOfStreamException>(() =>
+                Helper.assertThrowsException<EndOfStreamException>(() =>
                 {
                     var value = tester.GetNextInt();
                 });
@@ -33,7 +34,8 @@ namespace TextAdventuresTests.Tests
             var contents = "blah 123";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<FormatException>(() => {
+                Helper.assertThrowsException<FormatException>(() =>
+                {
                     var value = tester.GetNextInt();
                 });
                 
@@ -62,7 +64,7 @@ namespace TextAdventuresTests.Tests
             var contents = "";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<EndOfStreamException>(() =>
+                Helper.assertThrowsException<EndOfStreamException>(() =>
                 {
                     var array = tester.GetNextInt(2);
                 });
@@ -76,7 +78,7 @@ namespace TextAdventuresTests.Tests
             var contents = "12 blah 123";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<FormatException>(() =>
+                Helper.assertThrowsException<FormatException>(() =>
                 {
                     var array = tester.GetNextInt(3);
                 });
@@ -117,7 +119,7 @@ namespace TextAdventuresTests.Tests
             var contents = "123 1 45";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<EndOfStreamException>(() =>
+                Helper.assertThrowsException<EndOfStreamException>(() =>
                 {
                     var array = tester.GetNextInt(4);
                 });
@@ -130,7 +132,7 @@ namespace TextAdventuresTests.Tests
             var contents = "";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<EndOfStreamException>(() =>
+                Helper.assertThrowsException<EndOfStreamException>(() =>
                 {
                     var value = tester.GetNextString();
                 });
@@ -143,7 +145,7 @@ namespace TextAdventuresTests.Tests
             var contents = "asdf sdf";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<FormatException>(() =>
+                Helper.assertThrowsException<FormatException>(() =>
                 {
                     var value = tester.GetNextString();
                 });
@@ -156,7 +158,7 @@ namespace TextAdventuresTests.Tests
             var contents = "\"asdf sdf";
             runTest(contents, (tester) =>
             {
-                assertThrowsException<EndOfStreamException>(() =>
+                Helper.assertThrowsException<EndOfStreamException>(() =>
                 {
                     var value = tester.GetNextString();
                 });
@@ -256,18 +258,6 @@ namespace TextAdventuresTests.Tests
             writer.Flush();
             stream.Position = 0;
             return stream;
-        }
-        private void assertThrowsException<T>(Action run) where T : Exception
-        {
-            try
-            {
-                run();
-                Assert.Fail("expected error of type " + typeof(T).Name);
-            }
-            catch (T)
-            {
-                //good
-            }
         }
     }
 }

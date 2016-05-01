@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization.Json;
 using System.Text;
 
 namespace AdventureParser
@@ -10,14 +11,21 @@ namespace AdventureParser
     {
         //private fields for gamedef and gamestate
         private GameDefinition _gameDef;
+        private GameState _gameState;
 
         public Game(Stream gameDef) : this(gameDef, null)
         {
         }
         public Game(Stream gameDef, Stream gameState)
         {
-            //load internal GameDefinition from stream
-            //if gameState is not null, load that; else default based on gameDef
+            using (var sr = new StreamReader(gameDef))
+            {
+                _gameDef = new GameDefinition(sr);
+                if (gameState != null)
+                    LoadGameState(gameState);
+                else
+                    _gameState = new GameState(_gameDef);
+            }
         }
         internal Game(GameDefinition gameDef)
         {
@@ -26,15 +34,19 @@ namespace AdventureParser
 
         public void LoadGameState(Stream gameState)
         {
-            //pass stream to gamestate, or read as json and create object
+            var ser = new DataContractJsonSerializer(typeof(GameState));
+            _gameState = (GameState)ser.ReadObject(gameState);
+            //check whether gs matches gd
         }
         public void SaveGameState(Stream gameState)
         {
-
+            var ser = new DataContractJsonSerializer(typeof(GameState));
+            ser.WriteObject(gameState, gameState);
         }
         public IEnumerable<string> ProcessAction(string input)
         {
-            //get verb index, noun index from input
+            //get verb index, noun index from input and game def
+
             //loop through all the action responses in the game.  this knows how to run its conditions and actions
             yield break; 
         }
